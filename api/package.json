@@ -1,0 +1,11 @@
+{
+  "name": "api",
+  "packageManager": "yarn@4.6.0",
+  "scripts": {
+    "dev": "serverless offline --reloadHandler"
+  },
+  "devDependencies": {
+    "serverless": "^4.33.0",
+    "serverless-offline": "^14.4.0"
+  }
+}

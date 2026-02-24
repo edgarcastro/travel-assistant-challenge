@@ -1,0 +1,44 @@
+org: ecastrov
+app: travel-assistant
+service: travel-api
+frameworkVersion: "4"
+
+build:
+  esbuild:
+    bundle: true
+
+provider:
+  name: aws
+  runtime: nodejs22.x
+
+functions:
+  createTravel:
+    handler: src/create.handler
+    events:
+      - httpApi:
+          path: /travels
+          method: post
+
+  getTravel:
+    handler: src/read.handler
+    events:
+      - httpApi:
+          path: /travels
+          method: get
+
+  updateTravel:
+    handler: src/update.handler
+    events:
+      - httpApi:
+          path: /travels/{id}
+          method: put
+
+  deleteTravel:
+    handler: src/delete.handler
+    events:
+      - httpApi:
+          path: /travels/{id}
+          method: delete
+
+plugins:
+  - serverless-offline
