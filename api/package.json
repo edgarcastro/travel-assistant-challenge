@@ -1,11 +1,13 @@
 {
   "name": "api",
-  "packageManager": "yarn@4.6.0",
   "scripts": {
     "dev": "serverless offline --reloadHandler"
   },
+  "dependencies": {
+    "shared": "workspace:*"
+  },
   "devDependencies": {
-    "serverless": "^4.33.0",
-    "serverless-offline": "^14.4.0"
+    "serverless": "4.33.0",
+    "serverless-offline": "14.4.0"
   }
 }

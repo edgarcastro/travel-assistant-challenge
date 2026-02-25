@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.serverless/
+bun.lockb
+.env
+.env.local
+.DS_Store
