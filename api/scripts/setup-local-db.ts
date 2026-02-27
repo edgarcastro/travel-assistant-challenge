@@ -23,8 +23,14 @@ export async function setup() {
   await client.send(
     new CreateTableCommand({
       TableName: TABLE_NAME,
-      AttributeDefinitions: [{ AttributeName: "id", AttributeType: "S" }],
-      KeySchema: [{ AttributeName: "id", KeyType: "HASH" }],
+      AttributeDefinitions: [
+        { AttributeName: "userId", AttributeType: "S" },
+        { AttributeName: "id", AttributeType: "S" },
+      ],
+      KeySchema: [
+        { AttributeName: "userId", KeyType: "HASH" },
+        { AttributeName: "id", KeyType: "RANGE" },
+      ],
       BillingMode: "PAY_PER_REQUEST",
     })
   );

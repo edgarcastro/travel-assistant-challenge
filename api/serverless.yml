@@ -21,33 +21,33 @@ provider:
             - dynamodb:GetItem
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
-            - dynamodb:Scan
+            - dynamodb:Query
           Resource: !GetAtt TravelsTable.Arn
 
 functions:
   createTravel:
-    handler: src/create.handler
+    handler: src/handlers/createHandler.handler
     events:
       - httpApi:
           path: /travels
           method: post
 
   getTravel:
-    handler: src/read.handler
+    handler: src/handlers/readHandler.handler
     events:
       - httpApi:
           path: /travels
           method: get
 
   updateTravel:
-    handler: src/update.handler
+    handler: src/handlers/updateHandler.handler
     events:
       - httpApi:
           path: /travels/{id}
           method: put
 
   deleteTravel:
-    handler: src/delete.handler
+    handler: src/handlers/deleteHandler.handler
     events:
       - httpApi:
           path: /travels/{id}
@@ -63,9 +63,47 @@ resources:
       Properties:
         TableName: travels
         AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
           - AttributeName: id
             AttributeType: S
         KeySchema:
-          - AttributeName: id
+          - AttributeName: userId
             KeyType: HASH
+          - AttributeName: id
+            KeyType: RANGE
         BillingMode: PAY_PER_REQUEST
+
+    CognitoUserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: ${self:service}-user-pool-${sls:stage}
+        UsernameAttributes:
+          - email
+        AutoVerifiedAttributes:
+          - email
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 8
+            RequireUppercase: true
+            RequireLowercase: true
+            RequireNumbers: true
+            RequireSymbols: false
+
+    CognitoUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: ${self:service}-web-client-${sls:stage}
+        UserPoolId: !Ref CognitoUserPool
+        ExplicitAuthFlows:
+          - ALLOW_USER_SRP_AUTH
+          - ALLOW_USER_PASSWORD_AUTH
+          - ALLOW_REFRESH_TOKEN_AUTH
+        GenerateSecret: false
+        PreventUserExistenceErrors: ENABLED
+
+  Outputs:
+    UserPoolId:
+      Value: !Ref CognitoUserPool
+    UserPoolClientId:
+      Value: !Ref CognitoUserPoolClient
