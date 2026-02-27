@@ -1,14 +1,15 @@
+import { DeleteCommand } from "@aws-sdk/lib-dynamodb";
+import { docClient, TABLE_NAME } from "./db";
+
 export const handler = async (event: any) => {
+  const { id } = event.pathParameters;
+
+  await docClient.send(
+    new DeleteCommand({ TableName: TABLE_NAME, Key: { id } })
+  );
+
   return {
-    statusCode: 200,
-    body: JSON.stringify(
-      {
-        action: "delete",
-        message: "Delete travel wishlist item - dummy response",
-        input: event,
-      },
-      null,
-      2,
-    ),
+    statusCode: 204,
+    body: "",
   };
 };

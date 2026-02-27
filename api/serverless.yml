@@ -10,6 +10,19 @@ build:
 provider:
   name: aws
   runtime: nodejs22.x
+  environment:
+    TABLE_NAME: !Ref TravelsTable
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+            - dynamodb:GetItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:Scan
+          Resource: !GetAtt TravelsTable.Arn
 
 functions:
   createTravel:
@@ -42,3 +55,17 @@ functions:
 
 plugins:
   - serverless-offline
+
+resources:
+  Resources:
+    TravelsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: travels
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST

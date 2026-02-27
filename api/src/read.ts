@@ -1,14 +1,11 @@
-export const handler = async (event: any) => {
+import { ScanCommand } from "@aws-sdk/lib-dynamodb";
+import { docClient, TABLE_NAME } from "./db";
+
+export const handler = async () => {
+  const result = await docClient.send(new ScanCommand({ TableName: TABLE_NAME }));
+
   return {
     statusCode: 200,
-    body: JSON.stringify(
-      {
-        action: "read",
-        message: "Read travel wishlist item(s) - dummy response",
-        input: event,
-      },
-      null,
-      2,
-    ),
+    body: JSON.stringify(result.Items ?? []),
   };
 };
