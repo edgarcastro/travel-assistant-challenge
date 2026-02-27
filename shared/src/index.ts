@@ -1,9 +1,11 @@
 // Shared types, interfaces, and utility functions
 
 export interface TravelItem {
-  id: string;
-  destination: string;
-  description?: string;
+  userId: string;
+  countryCode: string;
+  city: string;
+  priority?: "low" | "medium" | "high";
+  notes?: string;
   createdAt: string;
   updatedAt: string;
 }

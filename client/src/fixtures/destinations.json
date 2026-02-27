@@ -1,0 +1,182 @@
+[
+  {
+    "name": "Cartagena de Indias",
+    "code": "CARTAGENA",
+    "weatherCode": "HOT_HUMID",
+    "description": "Ciudad amurallada Patrimonio de la Humanidad, famosa por su casco histórico colonial, playas del Caribe y vibrante vida nocturna."
+  },
+  {
+    "name": "Medellín",
+    "code": "MEDELLIN",
+    "weatherCode": "MILD",
+    "description": "La 'Ciudad de la Eterna Primavera', reconocida mundialmente por su transformación urbana, innovación social y cultura paisa."
+  },
+  {
+    "name": "Bogotá",
+    "code": "BOGOTA",
+    "weatherCode": "COLD",
+    "description": "Capital del país, centro cultural y político. Destaca por La Candelaria, el Museo del Oro, la gastronomía y su vida nocturna."
+  },
+  {
+    "name": "Santa Marta",
+    "code": "SANTAMARTA",
+    "weatherCode": "HOT_HUMID",
+    "description": "Ciudad más antigua de Colombia, puerta de entrada al Parque Tayrona y a la Sierra Nevada, con playas paradisíacas y cultura indígena."
+  },
+  {
+    "name": "San Andrés",
+    "code": "SANANDRES",
+    "weatherCode": "TROPICAL",
+    "description": "Isla caribeña de aguas cristalinas en siete tonos de azul, ideal para buceo, snorkel y disfrutar de la cultura raizal."
+  },
+  {
+    "name": "Salento",
+    "code": "SALENTO",
+    "weatherCode": "MILD",
+    "description": "Municipio del Quindío en el corazón del Eje Cafetero, famoso por el Valle del Cocora, las palmas de cera y la arquitectura colonial colorida."
+  },
+  {
+    "name": "Villa de Leyva",
+    "code": "VILLADELEYVA",
+    "weatherCode": "DRY_COLD",
+    "description": "Pueblo colonial Patrimonio Nacional con la plaza mayor más grande de Colombia, paisajes desérticos y sitios paleontológicos únicos."
+  },
+  {
+    "name": "Tayrona",
+    "code": "TAYRONA",
+    "weatherCode": "HOT_HUMID",
+    "description": "Parque Nacional Natural que combina selva tropical con playas vírgenes del Caribe, hogar de la comunidad Kogui y biodiversidad exuberante."
+  },
+  {
+    "name": "Caño Cristales",
+    "code": "CANOCRISTALES",
+    "weatherCode": "HOT",
+    "description": "Conocido como 'el río de los cinco colores' o 'el río más hermoso del mundo', ubicado en La Macarena, Meta. Espectáculo natural único."
+  },
+  {
+    "name": "Popayán",
+    "code": "POPAYAN",
+    "weatherCode": "MILD",
+    "description": "La 'Ciudad Blanca de Colombia', destacada por su arquitectura colonial, Semana Santa Patrimonio de la Humanidad y gastronomía típica."
+  },
+  {
+    "name": "Manizales",
+    "code": "MANIZALES",
+    "weatherCode": "COLD",
+    "description": "Ciudad cafetera en los Andes, puerta de entrada al Parque Nacional Natural Los Nevados y sede de la famosa Feria de Manizales."
+  },
+  {
+    "name": "Cali",
+    "code": "CALI",
+    "weatherCode": "HOT",
+    "description": "Capital mundial de la salsa, con una cultura festiva única, gastronomía vallecaucana y acceso al Pacífico colombiano."
+  },
+  {
+    "name": "Barichara",
+    "code": "BARICHARA",
+    "weatherCode": "DRY_WARM",
+    "description": "Considerado el pueblo más lindo de Colombia, con calles empedradas, casas blancas de bahareque y el famoso Camino Real."
+  },
+  {
+    "name": "Providencia",
+    "code": "PROVIDENCIA",
+    "weatherCode": "TROPICAL",
+    "description": "Isla paradisíaca del Caribe colombiano, menos masificada que San Andrés, con la tercera barrera de coral más grande del mundo."
+  },
+  {
+    "name": "Leticia",
+    "code": "LETICIA",
+    "weatherCode": "VERY_HOT_HUMID",
+    "description": "Puerta de entrada a la Amazonía colombiana, donde convergen Colombia, Perú y Brasil. Ideal para ecoturismo y turismo indígena."
+  },
+  {
+    "name": "Bucaramanga",
+    "code": "BUCARAMANGA",
+    "weatherCode": "MILD",
+    "description": "La 'Ciudad de los Parques', conocida por su excelente clima, el Cañón del Chicamocha, el parapente y las hormigas culonas."
+  },
+  {
+    "name": "Armenia",
+    "code": "ARMENIA",
+    "weatherCode": "MILD",
+    "description": "Capital del Quindío y corazón del Eje Cafetero, rodeada de fincas cafeteras, parques temáticos y paisajes Patrimonio de la Humanidad."
+  },
+  {
+    "name": "Pereira",
+    "code": "PEREIRA",
+    "weatherCode": "MILD",
+    "description": "Ciudad dinámica del Eje Cafetero, punto de partida para el Paisaje Cultural Cafetero, termales y aventura en la naturaleza."
+  },
+  {
+    "name": "San Gil",
+    "code": "SANGIL",
+    "weatherCode": "MILD",
+    "description": "Capital del deporte extremo en Colombia. Rafting en el río Fonce, parapente, espeleología y acceso a pueblos coloniales santandereanos."
+  },
+  {
+    "name": "Guatapé",
+    "code": "GUATAPE",
+    "weatherCode": "MILD",
+    "description": "Pueblo de coloridos zócalos junto al embalse más hermoso de Colombia. La Piedra del Peñol ofrece vistas panorámicas espectaculares."
+  },
+  {
+    "name": "Mompox",
+    "code": "MOMPOX",
+    "weatherCode": "VERY_HOT",
+    "description": "Ciudad colonial Patrimonio de la Humanidad a orillas del río Magdalena, inmortalizada por Gabriel García Márquez en su obra."
+  },
+  {
+    "name": "Tierradentro",
+    "code": "TIERRADENTRO",
+    "weatherCode": "MILD",
+    "description": "Parque Arqueológico Patrimonio de la Humanidad con hipogeos precolombinos únicos en el mundo, ubicado en el Cauca."
+  },
+  {
+    "name": "San Agustín",
+    "code": "SANAGUSTIN",
+    "weatherCode": "MILD",
+    "description": "Parque Arqueológico Patrimonio de la Humanidad con la mayor concentración de esculturas precolombinas de América, en el Huila."
+  },
+  {
+    "name": "Nuquí",
+    "code": "NUQUI",
+    "weatherCode": "VERY_HOT_HUMID",
+    "description": "Destino ecoturístico en el Pacífico chocoano, famoso por el avistamiento de ballenas jorobadas, selvas vírgenes y playas desiertas."
+  },
+  {
+    "name": "Pasto",
+    "code": "PASTO",
+    "weatherCode": "COLD",
+    "description": "Ciudad andina al pie del volcán Galeras, conocida por el Carnaval de Negros y Blancos Patrimonio Inmaterial de la Humanidad."
+  },
+  {
+    "name": "Riohacha",
+    "code": "RIOHACHA",
+    "weatherCode": "HOT_DRY",
+    "description": "Capital de La Guajira, puerta de entrada al Cabo de la Vela y Punta Gallinas, el punto más septentrional de Sudamérica."
+  },
+  {
+    "name": "Filandia",
+    "code": "FILANDIA",
+    "weatherCode": "MILD",
+    "description": "Pintoresco pueblo cafetero del Quindío, con mirador panorámico sobre el Valle del Cauca, artesanías en palma de iraca y café de origen."
+  },
+  {
+    "name": "Honda",
+    "code": "HONDA",
+    "weatherCode": "VERY_HOT",
+    "description": "Ciudad histórica a orillas del río Magdalena, conocida como la 'Ciudad de los Puentes', con un casco colonial bien preservado."
+  },
+  {
+    "name": "Jardín",
+    "code": "JARDIN",
+    "weatherCode": "MILD",
+    "description": "Hermoso municipio antioqueño declarado Patrimonio Nacional, con coloridas casas, reservas naturales y el famoso teleférico."
+  },
+  {
+    "name": "Cabo de la Vela",
+    "code": "CABODELAVELA",
+    "weatherCode": "HOT_DRY",
+    "description": "Desierto costero de La Guajira en el Caribe, hogar del pueblo Wayuu, con paisajes áridos únicos, kitesurf y atardeceres mágicos."
+  }
+]
