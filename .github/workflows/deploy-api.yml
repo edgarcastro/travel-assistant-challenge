@@ -1,0 +1,48 @@
+name: Deploy API
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+    paths:
+      - "api/**"
+      - "shared/**"
+      - ".github/workflows/deploy-api.yml"
+
+jobs:
+  deploy:
+    name: Deploy to ${{ github.ref_name == 'main' && 'prod' || 'staging' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Set stage
+        id: vars
+        run: |
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            echo "stage=prod" >> $GITHUB_OUTPUT
+            echo "region=us-east-1" >> $GITHUB_OUTPUT
+          else
+            echo "stage=staging" >> $GITHUB_OUTPUT
+            echo "region=us-east-2" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Deploy
+        working-directory: api
+        run: bunx serverless deploy --stage ${{ steps.vars.outputs.stage }}
+        env:
+          SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ steps.vars.outputs.region }}

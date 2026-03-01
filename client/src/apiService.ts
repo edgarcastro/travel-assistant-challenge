@@ -1,73 +1,64 @@
-import type { TravelItem } from "shared";
+import type {
+  TravelEntry,
+  CreateTravelRequest,
+  UpdateTravelRequest,
+  GetTravelsResponse,
+  CreateTravelResponse,
+  UpdateTravelResponse,
+} from "shared";
 
-export interface TravelEntry extends TravelItem {
-  id: string; // "${countryCode}#${city}"
-}
+export type { TravelEntry };
 
-const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
+const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
-const makeId = (countryCode: string, city: string) => `${countryCode}#${city}`;
+const toApiId = (id: string) => id.replace("#", "-");
 
-let store: TravelEntry[] = [
-  {
-    id: makeId("CO", "CARTAGENA"),
-    userId: "edgar.castro.villa@outlook.com",
-    countryCode: "CO",
-    city: "CARTAGENA",
-    priority: "high",
-    notes: "Visitar durante la temporada de diciembre",
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  },
-  {
-    id: makeId("CO", "MEDELLIN"),
-    userId: "edgar.castro.villa@outlook.com",
-    countryCode: "CO",
-    city: "MEDELLIN",
-    priority: "medium",
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  },
-];
+const makeHeaders = (userId: string): HeadersInit => ({
+  "Content-Type": "application/json",
+  "x-user-id": userId,
+});
 
-export const getItems = async (userId: string): Promise<TravelEntry[]> => {
-  await delay(300);
-  return store.filter((item) => item.userId === userId);
+export const getItems = async (userId: string): Promise<GetTravelsResponse> => {
+  const res = await fetch(`${API_URL}/travels`, {
+    headers: makeHeaders(userId),
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
 };
 
 export const createItem = async (
   data: Omit<TravelEntry, "id" | "createdAt" | "updatedAt">,
-): Promise<TravelEntry> => {
-  await delay(200);
-  const now = new Date().toISOString();
-  const entry: TravelEntry = {
-    ...data,
-    id: makeId(data.countryCode, data.city),
-    createdAt: now,
-    updatedAt: now,
-  };
-  store.push(entry);
-  return entry;
+): Promise<CreateTravelResponse> => {
+  const { userId, countryCode, city, priority, notes } = data;
+  const body: CreateTravelRequest = { countryCode, city, priority, notes };
+  const res = await fetch(`${API_URL}/travels`, {
+    method: "POST",
+    headers: makeHeaders(userId),
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
 };
 
 export const updateItem = async (
   id: string,
-  data: Pick<TravelItem, "countryCode" | "city" | "priority" | "notes">,
-): Promise<TravelEntry> => {
-  await delay(200);
-  const idx = store.findIndex((i) => i.id === id);
-  if (idx === -1) throw new Error("Item not found");
-  const updated: TravelEntry = {
-    ...store[idx],
-    ...data,
-    id: makeId(data.countryCode, data.city),
-    updatedAt: new Date().toISOString(),
-  };
-  store[idx] = updated;
-  return updated;
+  userId: string,
+  data: UpdateTravelRequest,
+): Promise<UpdateTravelResponse> => {
+  const res = await fetch(`${API_URL}/travels/${toApiId(id)}`, {
+    method: "PUT",
+    headers: makeHeaders(userId),
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error(await res.text());
+  console.log("it works");
+  return res.json();
 };
 
-export const deleteItem = async (id: string): Promise<void> => {
-  await delay(200);
-  store = store.filter((i) => i.id !== id);
+export const deleteItem = async (id: string, userId: string): Promise<void> => {
+  const res = await fetch(`${API_URL}/travels/${toApiId(id)}`, {
+    method: "DELETE",
+    headers: makeHeaders(userId),
+  });
+  if (!res.ok) throw new Error(await res.text());
 };

@@ -20,7 +20,7 @@ import {
   deleteItem,
   type TravelEntry,
 } from "./apiService";
-import type { TravelItem } from "shared";
+import type { TravelItem, UpdateTravelRequest } from "shared";
 
 const cityName = Object.fromEntries(destinations.map((d) => [d.code, d.name]));
 
@@ -54,12 +54,16 @@ function AppContent({ user, signOut }: { user: User; signOut?: () => void }) {
   };
 
   const handleSave = async (
-    data: Pick<TravelItem, "countryCode" | "city" | "priority" | "notes">
+    data: Pick<TravelItem, "countryCode" | "city" | "priority" | "notes">,
   ) => {
     if (editingItem) {
-      const updated = await updateItem(editingItem.id, data);
+      const patch: UpdateTravelRequest = {
+        priority: data.priority,
+        notes: data.notes,
+      };
+      const updated = await updateItem(editingItem.id, userId, patch);
       setItems((prev) =>
-        prev.map((i) => (i.id === editingItem.id ? updated : i))
+        prev.map((i) => (i.id === editingItem.id ? updated : i)),
       );
     } else {
       const created = await createItem({ ...data, userId });
@@ -69,7 +73,7 @@ function AppContent({ user, signOut }: { user: User; signOut?: () => void }) {
 
   const handleDeleteConfirm = async () => {
     if (!deletingItem) return;
-    await deleteItem(deletingItem.id);
+    await deleteItem(deletingItem.id, userId);
     setItems((prev) => prev.filter((i) => i.id !== deletingItem.id));
     setDeletingItem(undefined);
   };
@@ -99,7 +103,11 @@ function AppContent({ user, signOut }: { user: User; signOut?: () => void }) {
           </Button>
         </div>
 
-        <TravelList items={items} onEdit={openEdit} onDelete={setDeletingItem} />
+        <TravelList
+          items={items}
+          onEdit={openEdit}
+          onDelete={setDeletingItem}
+        />
       </main>
 
       <TravelFormModal
@@ -128,7 +136,9 @@ function AppContent({ user, signOut }: { user: User; signOut?: () => void }) {
             <p className="text-sm text-gray-600">
               ¿Estás seguro de que deseas eliminar{" "}
               <span className="font-medium">
-                {deletingItem ? cityName[deletingItem.city] ?? deletingItem.city : ""}
+                {deletingItem
+                  ? (cityName[deletingItem.city] ?? deletingItem.city)
+                  : ""}
               </span>
               ? Esta acción no se puede deshacer.
             </p>

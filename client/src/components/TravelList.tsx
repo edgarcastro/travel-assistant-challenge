@@ -45,7 +45,7 @@ export default function TravelList({ items, onEdit, onDelete }: Props) {
             <div className="flex-1 min-w-0 space-y-1.5">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="font-semibold text-base leading-tight">
-                  {item.city}
+                  {dest?.name || item.city}
                 </span>
                 <span className="text-xs text-default-400">🇨🇴 Colombia</span>
                 {item.priority && (
