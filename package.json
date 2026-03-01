@@ -10,9 +10,21 @@
     "dev": "concurrently \"bun run dev:api\" \"bun run dev:client\"",
     "dev:api": "bun run --cwd api dev",
     "dev:client": "bun run --cwd client dev",
-    "build:client": "bun run --cwd client build"
+    "build:client": "bun run --cwd client build",
+    "prepare": "husky || true",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "bun run test:api && bun run test:client",
+    "test:api": "bun run --cwd api test",
+    "test:client": "bun run --cwd client test"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "~9.2.1",
+    "husky": "~9.1.7",
+    "lint-staged": "~16.3.1",
+    "prettier": "~3.8.1"
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx,js,json,md,yml,yaml}": "prettier --check"
   }
 }

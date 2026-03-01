@@ -1,25 +1,12 @@
 import { useEffect, useState } from "react";
 import { Authenticator } from "@aws-amplify/ui-react";
 import type { AuthUser } from "aws-amplify/auth";
-import {
-  Button,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from "@heroui/react";
+import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@heroui/react";
 import { ExclamationTriangleIcon, PlusIcon } from "@heroicons/react/20/solid";
 import TravelList from "./components/TravelList";
 import TravelFormModal from "./components/TravelFormModal";
 import destinations from "./fixtures/destinations.json";
-import {
-  getItems,
-  createItem,
-  updateItem,
-  deleteItem,
-  type TravelEntry,
-} from "./apiService";
+import { getItems, createItem, updateItem, deleteItem, type TravelEntry } from "./apiService";
 import type { TravelItem, UpdateTravelRequest } from "shared";
 
 const cityName = Object.fromEntries(destinations.map((d) => [d.code, d.name]));
@@ -41,7 +28,9 @@ function AppContent({ user, signOut }: { user: User; signOut?: () => void }) {
   const [deletingItem, setDeletingItem] = useState<TravelEntry | undefined>();
 
   useEffect(() => {
-    getItems(userId).then(setItems).finally(() => setLoading(false));
+    getItems(userId)
+      .then(setItems)
+      .finally(() => setLoading(false));
   }, [userId]);
 
   const openCreate = () => {
@@ -63,9 +52,7 @@ function AppContent({ user, signOut }: { user: User; signOut?: () => void }) {
         notes: data.notes,
       };
       const updated = await updateItem(editingItem.id, userId, patch);
-      setItems((prev) =>
-        prev.map((i) => (i.id === editingItem.id ? updated : i)),
-      );
+      setItems((prev) => prev.map((i) => (i.id === editingItem.id ? updated : i)));
     } else {
       const created = await createItem({ ...data, userId });
       setItems((prev) => [...prev, created]);
@@ -104,12 +91,7 @@ function AppContent({ user, signOut }: { user: User; signOut?: () => void }) {
           </Button>
         </div>
 
-        <TravelList
-          items={items}
-          onEdit={openEdit}
-          onDelete={setDeletingItem}
-          loading={loading}
-        />
+        <TravelList items={items} onEdit={openEdit} onDelete={setDeletingItem} loading={loading} />
       </main>
 
       <TravelFormModal
@@ -117,9 +99,7 @@ function AppContent({ user, signOut }: { user: User; signOut?: () => void }) {
         onClose={() => setModalOpen(false)}
         onSave={handleSave}
         item={editingItem}
-        selectedCities={items
-          .filter((i) => i.city !== editingItem?.city)
-          .map((i) => i.city)}
+        selectedCities={items.filter((i) => i.city !== editingItem?.city).map((i) => i.city)}
       />
 
       {/* Delete confirmation */}
@@ -138,9 +118,7 @@ function AppContent({ user, signOut }: { user: User; signOut?: () => void }) {
             <p className="text-sm text-gray-600">
               ¿Estás seguro de que deseas eliminar{" "}
               <span className="font-medium">
-                {deletingItem
-                  ? (cityName[deletingItem.city] ?? deletingItem.city)
-                  : ""}
+                {deletingItem ? (cityName[deletingItem.city] ?? deletingItem.city) : ""}
               </span>
               ? Esta acción no se puede deshacer.
             </p>

@@ -28,6 +28,12 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Format check
+        run: bunx prettier --check "api/**/*.{ts,js}" "shared/**/*.ts"
+
+      - name: Test
+        run: bun run test:api
+
       - name: Set stage
         id: vars
         run: |

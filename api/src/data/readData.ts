@@ -8,7 +8,7 @@ export async function readData(userId: string): Promise<TravelEntry[]> {
       TableName: TABLE_NAME,
       KeyConditionExpression: "userId = :userId",
       ExpressionAttributeValues: { ":userId": userId },
-    })
+    }),
   );
   return (result.Items ?? []) as TravelEntry[];
 }

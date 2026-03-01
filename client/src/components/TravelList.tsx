@@ -61,19 +61,13 @@ export default function TravelList({ items, onEdit, onDelete, loading }: Props) 
                 </span>
                 <span className="text-xs text-default-400">🇨🇴 Colombia</span>
                 {item.priority && (
-                  <Chip
-                    size="sm"
-                    color={PRIORITY_COLOR[item.priority]}
-                    variant="flat"
-                  >
+                  <Chip size="sm" color={PRIORITY_COLOR[item.priority]} variant="flat">
                     {PRIORITY_LABEL[item.priority]}
                   </Chip>
                 )}
               </div>
 
-              {dest && (
-                <WeatherBadge weatherCode={dest.weatherCode as WeatherCode} />
-              )}
+              {dest && <WeatherBadge weatherCode={dest.weatherCode as WeatherCode} />}
 
               {dest?.description && (
                 <p className="text-sm text-default-500 leading-snug line-clamp-2">
@@ -81,9 +75,7 @@ export default function TravelList({ items, onEdit, onDelete, loading }: Props) 
                 </p>
               )}
 
-              {item.notes && (
-                <p className="text-xs text-default-400 italic">{item.notes}</p>
-              )}
+              {item.notes && <p className="text-xs text-default-400 italic">{item.notes}</p>}
             </div>
 
             <div className="flex gap-1 self-start shrink-0">

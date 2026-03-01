@@ -27,11 +27,7 @@ export const handler = async (event: any) => {
       };
     }
 
-    const updated: UpdateTravelResponse = await updateData(
-      userId,
-      dbId,
-      parsed.data,
-    );
+    const updated: UpdateTravelResponse = await updateData(userId, dbId, parsed.data);
 
     return {
       statusCode: 200,

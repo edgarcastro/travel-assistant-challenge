@@ -1,8 +1,4 @@
-import {
-  DynamoDBClient,
-  CreateTableCommand,
-  ListTablesCommand,
-} from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient, CreateTableCommand, ListTablesCommand } from "@aws-sdk/client-dynamodb";
 
 const TABLE_NAME = "travels";
 
@@ -32,9 +28,8 @@ export async function setup() {
         { AttributeName: "id", KeyType: "RANGE" },
       ],
       BillingMode: "PAY_PER_REQUEST",
-    })
+    }),
   );
 
   console.log(`Table "${TABLE_NAME}" created successfully.`);
 }
-

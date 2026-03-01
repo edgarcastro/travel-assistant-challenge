@@ -2,10 +2,7 @@ import { Chip } from "@heroui/react";
 
 type ChipColor = "primary" | "success" | "warning" | "danger";
 
-const WEATHER_CONFIG: Record<
-  string,
-  { label: string; emoji: string; color: ChipColor }
-> = {
+const WEATHER_CONFIG: Record<string, { label: string; emoji: string; color: ChipColor }> = {
   COLD: { label: "Frío", emoji: "❄️", color: "primary" },
   DRY_COLD: { label: "Seco y frío", emoji: "🌬️", color: "primary" },
   MILD: { label: "Templado", emoji: "🌤️", color: "success" },

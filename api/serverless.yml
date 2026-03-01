@@ -85,6 +85,10 @@ functions:
 plugins:
   - serverless-offline
 
+custom:
+  serverless-offline:
+    noAuth: true
+
 resources:
   Resources:
     TravelsTable:

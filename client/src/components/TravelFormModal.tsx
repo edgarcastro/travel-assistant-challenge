@@ -109,12 +109,8 @@ export default function TravelFormModal({
 
           {selectedDest && (
             <div className="rounded-lg bg-default-50 border border-default-200 p-3 space-y-2">
-              <WeatherBadge
-                weatherCode={selectedDest.weatherCode as WeatherCode}
-              />
-              <p className="text-sm text-default-600">
-                {selectedDest.description}
-              </p>
+              <WeatherBadge weatherCode={selectedDest.weatherCode as WeatherCode} />
+              <p className="text-sm text-default-600">{selectedDest.description}</p>
             </div>
           )}
 
@@ -133,9 +129,7 @@ export default function TravelFormModal({
             label="Notas"
             placeholder="Cualquier nota..."
             value={form.notes ?? ""}
-            onValueChange={(value) =>
-              setForm((prev) => ({ ...prev, notes: value || undefined }))
-            }
+            onValueChange={(value) => setForm((prev) => ({ ...prev, notes: value || undefined }))}
             minRows={2}
           />
         </ModalBody>
@@ -143,12 +137,7 @@ export default function TravelFormModal({
           <Button variant="light" onPress={onClose} isDisabled={saving}>
             Cancelar
           </Button>
-          <Button
-            color="primary"
-            onPress={handleSave}
-            isLoading={saving}
-            isDisabled={!form.city}
-          >
+          <Button color="primary" onPress={handleSave} isLoading={saving} isDisabled={!form.city}>
             Guardar
           </Button>
         </ModalFooter>
