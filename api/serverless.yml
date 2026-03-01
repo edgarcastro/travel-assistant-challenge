@@ -17,7 +17,6 @@ provider:
       allowedHeaders:
         - Content-Type
         - Authorization
-        - x-user-id
 
       allowedMethods:
         - GET
@@ -25,6 +24,13 @@ provider:
         - PUT
         - DELETE
         - OPTIONS
+    authorizers:
+      cognitoAuthorizer:
+        type: jwt
+        identitySource: $request.header.Authorization
+        issuerUrl: !Sub "https://cognito-idp.${AWS::Region}.amazonaws.com/${CognitoUserPool}"
+        audience:
+          - !Ref CognitoUserPoolClient
   environment:
     TABLE_NAME: !Ref TravelsTable
   iam:
@@ -46,6 +52,8 @@ functions:
       - httpApi:
           path: /travels
           method: post
+          authorizer:
+            name: cognitoAuthorizer
 
   getTravel:
     handler: src/handlers/readHandler.handler
@@ -53,6 +61,8 @@ functions:
       - httpApi:
           path: /travels
           method: get
+          authorizer:
+            name: cognitoAuthorizer
 
   updateTravel:
     handler: src/handlers/updateHandler.handler
@@ -60,6 +70,8 @@ functions:
       - httpApi:
           path: /travels/{id}
           method: put
+          authorizer:
+            name: cognitoAuthorizer
 
   deleteTravel:
     handler: src/handlers/deleteHandler.handler
@@ -67,6 +79,8 @@ functions:
       - httpApi:
           path: /travels/{id}
           method: delete
+          authorizer:
+            name: cognitoAuthorizer
 
 plugins:
   - serverless-offline

@@ -35,12 +35,13 @@ function AppContent({ user, signOut }: { user: User; signOut?: () => void }) {
   const userId = user.signInDetails!.loginId!;
 
   const [items, setItems] = useState<TravelEntry[]>([]);
+  const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<TravelEntry | undefined>();
   const [deletingItem, setDeletingItem] = useState<TravelEntry | undefined>();
 
   useEffect(() => {
-    getItems(userId).then(setItems);
+    getItems(userId).then(setItems).finally(() => setLoading(false));
   }, [userId]);
 
   const openCreate = () => {
@@ -107,6 +108,7 @@ function AppContent({ user, signOut }: { user: User; signOut?: () => void }) {
           items={items}
           onEdit={openEdit}
           onDelete={setDeletingItem}
+          loading={loading}
         />
       </main>
 

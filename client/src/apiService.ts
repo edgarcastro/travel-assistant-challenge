@@ -1,3 +1,4 @@
+import { fetchAuthSession } from "aws-amplify/auth";
 import type {
   TravelEntry,
   CreateTravelRequest,
@@ -10,17 +11,22 @@ import type {
 export type { TravelEntry };
 
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+const DEV_AUTH = import.meta.env.VITE_DEV_AUTH === "true";
 
 const toApiId = (id: string) => id.replace("#", "-");
 
-const makeHeaders = (userId: string): HeadersInit => ({
-  "Content-Type": "application/json",
-  "x-user-id": userId,
-});
+const makeHeaders = async (userId: string): Promise<HeadersInit> => {
+  if (DEV_AUTH) {
+    return { "Content-Type": "application/json", "x-user-id": userId };
+  }
+  const { tokens } = await fetchAuthSession();
+  const token = tokens?.idToken?.toString();
+  return { "Content-Type": "application/json", Authorization: `Bearer ${token}` };
+};
 
 export const getItems = async (userId: string): Promise<GetTravelsResponse> => {
   const res = await fetch(`${API_URL}/travels`, {
-    headers: makeHeaders(userId),
+    headers: await makeHeaders(userId),
   });
   if (!res.ok) throw new Error(await res.text());
   return res.json();
@@ -33,7 +39,7 @@ export const createItem = async (
   const body: CreateTravelRequest = { countryCode, city, priority, notes };
   const res = await fetch(`${API_URL}/travels`, {
     method: "POST",
-    headers: makeHeaders(userId),
+    headers: await makeHeaders(userId),
     body: JSON.stringify(body),
   });
   if (!res.ok) throw new Error(await res.text());
@@ -47,7 +53,7 @@ export const updateItem = async (
 ): Promise<UpdateTravelResponse> => {
   const res = await fetch(`${API_URL}/travels/${toApiId(id)}`, {
     method: "PUT",
-    headers: makeHeaders(userId),
+    headers: await makeHeaders(userId),
     body: JSON.stringify(data),
   });
   if (!res.ok) throw new Error(await res.text());
@@ -58,7 +64,7 @@ export const updateItem = async (
 export const deleteItem = async (id: string, userId: string): Promise<void> => {
   const res = await fetch(`${API_URL}/travels/${toApiId(id)}`, {
     method: "DELETE",
-    headers: makeHeaders(userId),
+    headers: await makeHeaders(userId),
   });
   if (!res.ok) throw new Error(await res.text());
 };

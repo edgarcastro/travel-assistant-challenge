@@ -3,6 +3,7 @@ import { PencilSquareIcon, TrashIcon } from "@heroicons/react/20/solid";
 import type { TravelEntry } from "../apiService";
 import destinations from "../fixtures/destinations.json";
 import WeatherBadge, { type WeatherCode } from "./WeatherBadge";
+import TravelItemSkeleton from "./TravelItemSkeleton";
 
 const destByCode = Object.fromEntries(destinations.map((d) => [d.code, d]));
 
@@ -22,9 +23,20 @@ interface Props {
   items: TravelEntry[];
   onEdit: (item: TravelEntry) => void;
   onDelete: (item: TravelEntry) => void;
+  loading?: boolean;
 }
 
-export default function TravelList({ items, onEdit, onDelete }: Props) {
+export default function TravelList({ items, onEdit, onDelete, loading }: Props) {
+  if (loading) {
+    return (
+      <div className="space-y-3">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <TravelItemSkeleton key={i} />
+        ))}
+      </div>
+    );
+  }
+
   if (items.length === 0) {
     return (
       <p className="text-center text-sm text-default-400 py-12">
