@@ -1,11 +1,16 @@
 {
   "name": "travel-assistant",
   "private": true,
-  "workspaces": ["api", "client", "shared"],
+  "workspaces": [
+    "api",
+    "client",
+    "shared"
+  ],
   "scripts": {
     "dev": "concurrently \"bun run dev:api\" \"bun run dev:client\"",
     "dev:api": "bun run --cwd api dev",
-    "dev:client": "bun run --cwd client dev"
+    "dev:client": "bun run --cwd client dev",
+    "build:client": "bun run --cwd client build"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

@@ -10,6 +10,19 @@ build:
 provider:
   name: aws
   runtime: nodejs22.x
+  httpApi:
+    cors:
+      allowedOrigins:
+        - https://travel-assistant-18114.web.app
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+      allowedMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
   environment:
     TABLE_NAME: !Ref TravelsTable
   iam:
